@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_index_1 = __importDefault(require("../module/auth/auth.index"));
+const user_index_1 = __importDefault(require("../module/user/user.index"));
+const category_index_1 = __importDefault(require("../module/category/category.index"));
+const book_index_1 = __importDefault(require("../module/book/book.index"));
+const order_index_1 = __importDefault(require("../module/order/order.index"));
+const profile_index_1 = __importDefault(require("../module/profile/profile.index"));
+const router = (0, express_1.Router)();
+router.use('/auth', auth_index_1.default);
+router.use('/users', user_index_1.default);
+router.use('/categories', category_index_1.default);
+router.use('/books', book_index_1.default);
+router.use('/orders', order_index_1.default);
+router.use('/profile', profile_index_1.default);
+exports.default = router;
