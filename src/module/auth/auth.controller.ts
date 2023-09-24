@@ -19,6 +19,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         const result = await prisma.user.create({
             data: user,
             select: {
+                id: true,
                 name: true,
                 email: true,
                 contactNo: true,
@@ -66,6 +67,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
                 email
             },
             select: {
+                id: true,
                 name: true,
                 email: true,
                 contactNo: true,
