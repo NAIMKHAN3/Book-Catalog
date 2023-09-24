@@ -36,8 +36,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
             success: true,
             message: "User created successfully!",
             data: result,
-            accessToken,
-            refreshToken
+            token: accessToken,
         })
     }
     catch (err) {
@@ -81,8 +80,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
             success: true,
             message: "User signin successfully!",
             data: user,
-            accessToken,
-            refreshToken
+            token:accessToken
         })
     }
     catch (err) {
