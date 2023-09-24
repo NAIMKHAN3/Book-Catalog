@@ -33,12 +33,26 @@ model Category {
 }
 
 model Book {
-  id              String      @id @default(uuid())
+  id              String   @id @default(uuid())
   title           String
-  author          String      @unique
+  author          String
   price           Int
-  genre           StudentRole
-  publicationDate DateTime    @default(now())
-  category        Category    @relation(fields: [categoryId], references: [id])
+  genre           String
+  publicationDate String
+  category        Category @relation(fields: [categoryId], references: [id])
   categoryId      String
+}
+
+model Order {
+  id           String      @id @default(uuid())
+  userId       String
+  orderedBooks Json
+  status       OrderStatus @default(pending)
+  createdAt DateTime @default(now())
+}
+
+enum OrderStatus {
+  pending
+  shipped
+  delivered
 }

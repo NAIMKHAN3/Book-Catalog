@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/create-book', verifyBookValidation, createBook)
 router.get('/', getAllBooks)
-router.get('/:categoryId', getBooksByCategory)
+router.get('/:categoryId/category', getBooksByCategory)
 router.get('/:id', getSingleBook)
 router.patch('/:id', verifyBookUpdateValidation, updateBook)
 router.delete('/:id', deleteBook)

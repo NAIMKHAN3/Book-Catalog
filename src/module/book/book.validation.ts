@@ -6,6 +6,7 @@ const createBookValidation = {
         author: Joi.string().required(),
         price: Joi.number().required(),
         genre: Joi.string().required(),
+        publicationDate: Joi.string().required(),
         categoryId: Joi.string().pattern(/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/).required()
     })
 }
