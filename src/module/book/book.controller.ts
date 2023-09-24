@@ -26,13 +26,16 @@ export const getAllBooks = async (req: Request, res: Response, next: NextFunctio
     try {
         const { page, size, sortBy, sortOrder, minPrice, maxPrice, category, search } = req.query;
         console.log(search)
-        const skip = (parseInt(page as string) - 1) || 0;
+        let skip = (parseInt(page as string) - 1) || 0;
         const take = (parseInt(size as string)) || 10;
         const sortField = sortBy as keyof Prisma.BookWhereInput || 'title';
         const order = (sortOrder as string)?.toLowerCase() === 'desc' ? 'desc' : 'asc';
         const minBookPrice = parseInt(minPrice as string) || 0;
         const maxBookPrice = parseInt(maxPrice as string) || 999999999;
         const whereCondition:Prisma.BookWhereInput[] = []
+        if(skip < 0){
+            skip = 0
+        }
         if (search) {
             whereCondition.push({
                 OR: [
