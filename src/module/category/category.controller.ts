@@ -19,7 +19,11 @@ export const createCategory = async (req: Request, res: Response, next: NextFunc
 }
 export const getAllCategorys = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const result = await prisma.category.findMany();
+        const result = await prisma.category.findMany({
+            include: {
+                books: true
+            }
+        });
         res.status(200).send({
             success: true,
             statusCode: 200,
@@ -38,6 +42,9 @@ export const getSingleCategory = async (req: Request, res: Response, next: NextF
         const result = await prisma.category.findFirst({
             where: {
                 id
+            },
+            include:{
+                books: true
             }
         });
         res.status(200).send({

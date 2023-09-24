@@ -2,6 +2,7 @@ import { Router } from "express";
 import { verifyJwt } from "../../middleware/verifyJwt";
 import { createOrder, getAllOrders, getSingleOrder } from "./order.controller";
 import { verifyOrder } from "./order.validation";
+import { verifyAdmin } from "../../middleware/verifyAdmin";
 
 const router = Router();
 
