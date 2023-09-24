@@ -4,10 +4,7 @@ import cookieParser from 'cookie-parser';
 import router from './router/router';
 import { createServer } from 'http';
 import errorHandler, { notfoundandler } from './middleware/errorHandler';
-import { PrismaClient } from '@prisma/client';
 const app: Application = express();
-
-export const prisma = new PrismaClient();
 
 app.use(cors());
 app.use(express.json());
