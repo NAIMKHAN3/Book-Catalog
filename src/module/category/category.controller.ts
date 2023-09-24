@@ -51,3 +51,43 @@ export const getSingleCategory = async (req: Request, res: Response, next: NextF
         next(err)
     }
 }
+
+export const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {id} = req.params;
+        const result = await prisma.category.update({
+            where: {
+                id
+            },
+            data: req.body,
+        });
+        res.status(200).send({
+            success: true,
+            statusCode: 200,
+            message: "Category updated successfully",
+            data: result
+        })
+    }
+    catch (err) {
+        next(err)
+    }
+}
+export const deleteCategory = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {id} = req.params;
+        const result = await prisma.category.delete({
+            where: {
+                id
+            }
+        });
+        res.status(200).send({
+            success: true,
+            statusCode: 200,
+            message: "Category deleted successfully",
+            data: result
+        })
+    }
+    catch (err) {
+        next(err)
+    }
+}
