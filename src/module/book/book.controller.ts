@@ -25,15 +25,14 @@ export const createBook = async (req: Request, res: Response, next: NextFunction
 export const getAllBooks = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { page, size, sortBy, sortOrder, minPrice, maxPrice, category, search } = req.query;
-        console.log(search)
         let skip = (parseInt(page as string) - 1) || 0;
         const take = (parseInt(size as string)) || 10;
         const sortField = sortBy as keyof Prisma.BookWhereInput || 'title';
         const order = (sortOrder as string)?.toLowerCase() === 'desc' ? 'desc' : 'asc';
         const minBookPrice = parseInt(minPrice as string) || 0;
         const maxBookPrice = parseInt(maxPrice as string) || 999999999;
-        const whereCondition:Prisma.BookWhereInput[] = []
-        if(skip < 0){
+        const whereCondition: Prisma.BookWhereInput[] = []
+        if (skip < 0) {
             skip = 0
         }
         if (search) {
@@ -46,7 +45,7 @@ export const getAllBooks = async (req: Request, res: Response, next: NextFunctio
             });
         }
         if (category) {
-            whereCondition.push({categoryId: category as string});
+            whereCondition.push({ categoryId: category as string });
         }
         whereCondition.push({
             price: {
@@ -58,7 +57,7 @@ export const getAllBooks = async (req: Request, res: Response, next: NextFunctio
             where: {
                 AND: whereCondition
             },
-            skip: skip* take,
+            skip: skip * take,
             take,
             orderBy: {
                 [sortField]: order,
@@ -67,10 +66,17 @@ export const getAllBooks = async (req: Request, res: Response, next: NextFunctio
                 category: true
             }
         })
+        const total = await prisma.book.count();
         res.status(200).send({
             success: true,
             statusCode: 200,
             message: "Books fetched successfully",
+            meta: {
+                page: skip,
+                size: take,
+                total,
+                totalPage: Math.ceil(total / take)
+            },
             data: result
         })
     }

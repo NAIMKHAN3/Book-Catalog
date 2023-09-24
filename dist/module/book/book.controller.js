@@ -37,7 +37,6 @@ exports.createBook = createBook;
 const getAllBooks = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { page, size, sortBy, sortOrder, minPrice, maxPrice, category, search } = req.query;
-        console.log(search);
         let skip = (parseInt(page) - 1) || 0;
         const take = (parseInt(size)) || 10;
         const sortField = sortBy || 'title';
@@ -79,10 +78,17 @@ const getAllBooks = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
                 category: true
             }
         });
+        const total = yield prisma_1.default.book.count();
         res.status(200).send({
             success: true,
             statusCode: 200,
             message: "Books fetched successfully",
+            meta: {
+                page: skip,
+                size: take,
+                total,
+                totalPage: Math.ceil(total / take)
+            },
             data: result
         });
     }
