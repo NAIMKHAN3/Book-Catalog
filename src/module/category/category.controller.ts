@@ -17,3 +17,37 @@ export const createCategory = async (req: Request, res: Response, next: NextFunc
         next(err)
     }
 }
+export const getAllCategorys = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const result = await prisma.category.findMany();
+        res.status(200).send({
+            success: true,
+            statusCode: 200,
+            message: "Categories fetched successfully",
+            data: result
+        })
+    }
+    catch (err) {
+        next(err)
+    }
+}
+
+export const getSingleCategory = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {id} = req.params;
+        const result = await prisma.category.findFirst({
+            where: {
+                id
+            }
+        });
+        res.status(200).send({
+            success: true,
+            statusCode: 200,
+            message: "Category fetched successfully",
+            data: result
+        })
+    }
+    catch (err) {
+        next(err)
+    }
+}
