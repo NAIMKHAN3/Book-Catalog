@@ -25,3 +25,8 @@ enum StudentRole {
   admin
   customer
 }
+
+model category{
+  id String @id @default(uuid())
+  title String
+}
